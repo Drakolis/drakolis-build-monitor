@@ -1,0 +1,9 @@
+{
+  "connectionSettings": {
+    "authData": {},
+    "url": "http://teamcity.jetbrains.com/"
+  },
+  "appSettings": {
+    "debug": true
+  }
+}
