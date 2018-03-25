@@ -1,9 +1,0 @@
-{
-  "connectionSettings": {
-    "authData": { "user": "guest", "password": "1" },
-    "url": "http://teamcity.jetbrains.com/"
-  },
-  "appSettings": {
-    "debug": true
-  }
-}
