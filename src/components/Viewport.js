@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import BuildItem from "./BuildItem";
-import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
-import TeamCityClient from '../redux/clients/TeamCityClient';
-
+import BuildGroupItem from "./BuildGroupItem";
+import BuildStateListener from "./BuildStateListener";
+import { Container } from 'reactstrap';
+import config from '../config'
+import find from "lodash";
 
 export default class Viewport extends Component {
-
-    client = new TeamCityClient();
-
-    componentWillMount() {
-        this.client.getBuildsOfType("NUnit_NUnitLite_Net20");
-    }
-
     render() {
+        const anyBuildFailed = find(this.props.buildData, elemt => elemt.buildData.buildFailed);
+        console.log(anyBuildFailed);
         return (
-            <Fabric>
-                <BuildItem/>
-            </Fabric>
+            <Container fluid className='py-2'>
+                {
+                    config.connectionSettings.buildGroups.map(group =>
+                    <BuildGroupItem key={group.groupName} name={group.groupName} builds={group.builds}/> )
+                }
+
+                 <BuildStateListener/>
+            </Container>
         );
     }
 }
