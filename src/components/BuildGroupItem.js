@@ -14,7 +14,7 @@ export default class BuildGroupItem extends Component {
                 </Row>
                 <Row className='pb-3'>
                     {this.props.builds.map(build =>
-                        <BuildItem build={build} id={this.props.name+'_'+build} key={this.props.name+'_'+build}/>
+                        <BuildItem build={build} id={this.props.id+'_'+build} key={this.props.id+'_'+build}/>
                     )}
                 </Row>
             </div>
