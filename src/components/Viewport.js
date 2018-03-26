@@ -13,7 +13,7 @@ export default class Viewport extends Component {
             <Container fluid className='py-2'>
                 {
                     config.connectionSettings.buildGroups.map(group =>
-                    <BuildGroupItem key={group.groupName} name={group.groupName} builds={group.builds}/> )
+                    <BuildGroupItem key={group.groupId} id={group.groupId} name={group.groupName} builds={group.builds}/> )
                 }
 
                  <BuildStateListener/>
