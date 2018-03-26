@@ -2,7 +2,7 @@ const http = require("http"),
       url = require('url'),
       TeamCityClient = require("./clients/TeamCityClient"),
       cors = require('cors'),
-      config = require('../config/config');
+      config = require('../src/config');
 
 http.createServer(function (req, res) {
     client = new TeamCityClient();

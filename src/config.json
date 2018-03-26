@@ -1,1 +1,49 @@
-../config/config.json
+{
+  "connectionSettings": {
+    "authData": { "user": "ziminma", "password": "Vbljybr1701" },
+    "url": "http://teamsrv/",
+    "buildGroups": [
+      {
+        "groupId": "UnitTests",
+        "groupName": "Unit Тесты",
+        "builds": [
+          "SPb_ElkDev1_Build_ElkUnitTests"
+        ]
+      },
+      {
+        "groupId": "ELK",
+        "groupName": "ЕЛК",
+        "builds": [
+          "SPb_ElkDev1_AutoTests_Features_Smoke",
+          "SPb_ElkDev1_AutoTests_Tests_AllTests",
+          "SPb_ElkDev1_AutoTests_Features_Products",
+          "SPb_ElkDev1_AutoTests_Features_TariffGroups"
+        ]
+      },
+      {
+        "groupId": "ELKAdmin",
+        "groupName": "Админка",
+        "builds": [
+          "SPb_ElkDev1_AutoTests_ELKAdminTests_LogIn",
+          "SPb_ElkDev1_AutoTests_ELKAdminTests_Banners",
+          "SPb_ElkDev1_AutoTests_ELKAdminTests_Products"
+        ]
+      },
+      {
+        "groupId": "DemoBroken",
+        "groupName": "Демо",
+        "builds": [
+          "SPb_ElkDev1_AutoTests_ElkTestsDemo_Smoke",
+          "Dev_NnDevBuild2_Build_Platform"
+        ]
+      }
+    ]
+  },
+  "appSettings": {
+    "alertSound": false,
+    "debug": true,
+    "serverUrl": "http://localhost",
+    "serverPort": 3001,
+    "updateTime": 10000
+  }
+}
