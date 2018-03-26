@@ -20,7 +20,7 @@ export default class ButtonWithPopover extends Component {
     render() {
         return (
             <span className="ml-1">
-                <Button id={this.props.id} onClick={this.toggle}>
+                <Button className={this.props.className} id={this.props.id} onClick={this.toggle}>
                     {this.props.name}
                 </Button>
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target={this.props.id} toggle={this.toggle}>
