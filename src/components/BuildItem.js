@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Card, CardText, CardBody,
-  CardTitle, CardSubtitle, CardFooter, Col } from 'reactstrap';
+  CardTitle, CardSubtitle, Button, Col } from 'reactstrap';
 import ButtonWithPopover from "./ButtonWithPopover";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import getBuildData from '../redux/actions/GetBuildData';
 import config from '../config';
 import {find} from 'lodash';
+import Icon from 'react-fa';
 
 class BuildItem extends Component {
 
@@ -31,15 +32,14 @@ class BuildItem extends Component {
 
     render() {
         const buildData = find(this.props.buildData, build => build.type === this.props.build) || null;
-        const nvl = (value, valueIfNull="???") => {
+        const nvl = (value, valueIfNull="") => {
         return value || valueIfNull;
         };
-        const buildFailed = nvl(buildData.buildState, 'SUCCESS') !== 'SUCCESS';
         if(config.appSettings.debug) console.log(buildData);
         return (
             <Col sm="3" className='py-1'>
                 <Card inverse color={nvl(buildData.buildStateColor, 'secondary')}
-                      className={buildFailed ? 'animated infinite shake' : ''}>
+                      className={buildData.buildFailed ? 'animated infinite shake' : ''}>
                     <CardBody>
                         <CardTitle tag="h3">
                             {nvl(buildData.name, this.props.build)}
@@ -49,11 +49,12 @@ class BuildItem extends Component {
                                 {nvl(buildData.projectName)}
                             </strong>
                         </CardSubtitle>
-                        <CardText><em>{nvl(buildData.buildStateMessage)}</em></CardText>
+                        <CardText><em><strong>{nvl(buildData.buildStateMessage)}</strong> {buildData.finishDate ? '('+buildData.finishDate+')' : ''}</em></CardText>
                         {/*<ButtonWithPopover name="Tests" id={"testsButton_"+this.props.build}>Huy</ButtonWithPopover>*/}
                         {buildData.lastCommit && buildData.lastCommit.comment &&
-                            <ButtonWithPopover name="Last Commit" header={nvl(buildData.lastCommit.comment)} id={"commitButton_"+this.props.id}><strong>by: </strong>{nvl(buildData.lastCommit.user)}</ButtonWithPopover>
+                            <ButtonWithPopover className="mr-1" name={"Last Commit"} header={nvl(buildData.lastCommit.comment)} id={"commitButton_"+this.props.id}><strong>by: </strong>{nvl(buildData.lastCommit.user)}</ButtonWithPopover>
                         }
+                        {buildData.buildUrl && <Button href={buildData.buildUrl} target='_blank' secondary><Icon name="share"/> Open in TeamCity</Button>}
                     </CardBody>
                 </Card>
             </Col>
