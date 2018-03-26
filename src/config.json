@@ -5,9 +5,10 @@
     "buildGroups": [
       {
         "groupId": "UnitTests",
-        "groupName": "Unit Тесты",
+        "groupName": "Общее",
         "builds": [
-          "SPb_ElkDev1_Build_ElkUnitTests"
+          "SPb_ElkDev1_Build_ElkUnitTests",
+          "SPb_ElkDev1_AutoTests_BuildTests"
         ]
       },
       {
@@ -28,19 +29,12 @@
           "SPb_ElkDev1_AutoTests_ELKAdminTests_Banners",
           "SPb_ElkDev1_AutoTests_ELKAdminTests_Products"
         ]
-      },
-      {
-        "groupId": "DemoBroken",
-        "groupName": "Демо",
-        "builds": [
-          "SPb_ElkDev1_AutoTests_ElkTestsDemo_Smoke",
-          "Dev_NnDevBuild2_Build_Platform"
-        ]
       }
     ]
   },
   "appSettings": {
     "alertSound": false,
+    "alertSoundLoop": false,
     "debug": true,
     "serverUrl": "http://localhost",
     "serverPort": 3001,

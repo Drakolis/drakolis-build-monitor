@@ -14,7 +14,7 @@ class BuildStateListener extends Component {
             config.appSettings.alertSound && <Sound
               url={config.appSettings.alertSound}
               playStatus={anyBuildFailed ? Sound.status.PLAYING : Sound.status.STOPPED}
-              loop
+              loop={config.appSettings.alertSoundLoop}
             />
         );
     }
