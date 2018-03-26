@@ -80,10 +80,10 @@ export default function buildDataReducer(state = initialState, action) {
             }
             if(action.payload.testData) {
                 if(action.payload.testData.testOccurrences.testOccurrence && action.payload.testData.testOccurrences.testOccurrence.length > 1)
-                    buildData.test = action.payload.testData.testOccurrences.testOccurrence.map(test => {return {name: test.name, status: test.status, duration: test.duration}});
+                    buildData.tests = action.payload.testData.testOccurrences.testOccurrence.map(test => {return {name: test.$.name, status: test.$.status, duration: test.$.duration}});
                 else {
                     let test = action.payload.testData.testOccurrences.testOccurrence;
-                    buildData.test = [ {name: test.name, status: test.status, duration: test.duration} ];
+                    buildData.tests = [ {name: test.$.name, status: test.$.status, duration: test.$.duration} ];
                 }
             }
             return { ...state, builds: filter(state.builds, el=>el.type !== buildType).concat(buildData)};

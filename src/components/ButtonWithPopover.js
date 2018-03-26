@@ -11,7 +11,6 @@ export default class ButtonWithPopover extends Component {
     }
 
     toggle() {
-        console.log("toggle");
         this.setState({
             popoverOpen: !this.state.popoverOpen
         });
@@ -19,7 +18,7 @@ export default class ButtonWithPopover extends Component {
 
     render() {
         return (
-            <span className="ml-1">
+            <span>
                 <Button className={this.props.className} id={this.props.id} onClick={this.toggle}>
                     {this.props.name}
                 </Button>

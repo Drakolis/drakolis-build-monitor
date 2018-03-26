@@ -50,9 +50,18 @@ class BuildItem extends Component {
                             </strong>
                         </CardSubtitle>
                         <CardText><em><strong>{nvl(buildData.buildStateMessage)}</strong> {buildData.finishDate ? '('+buildData.finishDate+')' : ''}</em></CardText>
-                        {/*<ButtonWithPopover name="Tests" id={"testsButton_"+this.props.build}>Huy</ButtonWithPopover>*/}
                         {buildData.lastCommit && buildData.lastCommit.comment &&
                             <ButtonWithPopover className="mr-1" name={"Last Commit"} header={nvl(buildData.lastCommit.comment)} id={"commitButton_"+this.props.id}><strong>by: </strong>{nvl(buildData.lastCommit.user)}</ButtonWithPopover>
+                        }
+                        {buildData.tests && buildData.tests.filter(test => test.status === "FAILURE").length>0 &&
+                            <ButtonWithPopover className="mr-1" name="Failed Tests" id={"testsButton_" + this.props.build}>
+                                <ul className='list-unstyled'>
+                                    {buildData.tests.map(test => {
+                                        let testnames = test.name.split('.');
+                                        return test.status === "FAILURE" && <li>{testnames[testnames.length-1]}</li>
+                                    })}
+                                </ul>
+                            </ButtonWithPopover>
                         }
                         {buildData.buildUrl && <Button href={buildData.buildUrl} target='_blank' secondary><Icon name="share"/> Open in TeamCity</Button>}
                     </CardBody>
