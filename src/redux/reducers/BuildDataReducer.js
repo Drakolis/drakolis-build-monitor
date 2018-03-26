@@ -1,6 +1,7 @@
 import {TEAMCITY_API_REQUEST, TEAMCITY_API_FAIL, TEAMCITY_API_SUCCESS} from "../ActionTypes"
 import config from "../../config";
 import {filter, uniqBy} from "lodash";
+import moment from "moment";
 
 const initialState = {
     builds: uniqBy(([].concat.apply([],
@@ -20,6 +21,8 @@ function buildStateColorSwitcher(actionType, buildState){
                         return 'success';
                     case "FAILURE":
                         return 'danger';
+                    case "RUNNING":
+                        return 'info';
                     default:
                         return 'warning';
                 }
@@ -63,12 +66,12 @@ export default function buildDataReducer(state = initialState, action) {
         case TEAMCITY_API_SUCCESS: {
             buildData.name = action.payload.buildData.buildType.$.name;
             buildData.projectName = action.payload.buildData.buildType.$.projectName;
-            buildData.buildState = action.payload.buildData.$.status;
+            buildData.buildState = action.payload.buildData.$.state === 'running' ? "RUNNING" : action.payload.buildData.$.status;
             buildData.buildStateColor = buildStateColorSwitcher(action.type, buildData.buildState);
             buildData.buildStateMessage =  action.payload.buildData.statusText;
             buildData.buildUrl = action.payload.buildData.$.webUrl;
-            buildData.finishDate = action.payload.buildData.finishDate;
-            buildData.buildFailed = buildData.buildState !== 'SUCCESS';
+            buildData.finishDate = action.payload.buildData.finishDate && moment(action.payload.buildData.finishDate, 'YYYYMMDDTHHmmss+Z').fromNow();
+            buildData.buildFailed = !(buildData.buildState === 'SUCCESS' || buildData.buildState === 'RUNNING');
 
             if(action.payload.commitData) {
                 buildData.lastCommit.comment = action.payload.commitData.change.comment;
@@ -76,7 +79,12 @@ export default function buildDataReducer(state = initialState, action) {
                 buildData.lastCommit.url = action.payload.commitData.change.$.webUrl;
             }
             if(action.payload.testData) {
-                buildData.test = action.payload.testData.testOccurrences.testOccurrence.map(test => {return {name: test.name, status: test.status, duration: test.duration}});
+                if(action.payload.testData.testOccurrences.testOccurrence && action.payload.testData.testOccurrences.testOccurrence.length > 1)
+                    buildData.test = action.payload.testData.testOccurrences.testOccurrence.map(test => {return {name: test.name, status: test.status, duration: test.duration}});
+                else {
+                    let test = action.payload.testData.testOccurrences.testOccurrence;
+                    buildData.test = [ {name: test.name, status: test.status, duration: test.duration} ];
+                }
             }
             return { ...state, builds: filter(state.builds, el=>el.type !== buildType).concat(buildData)};
         }
