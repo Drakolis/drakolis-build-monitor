@@ -1,14 +1,18 @@
 var Client = require('node-rest-client'),
-    config = require('../../config/config');
+    config = require('../../src/config');
 
 module.exports = class TeamCityClient {
 
     constructor(authParams){
         this.client = new Client.Client(authParams || config.connectionSettings.authData);
-        this.client.registerMethod("getBuildsOfType", config.connectionSettings.url + config.connectionSettings.authType + "/app/rest/2017.2/builds?buildType=${buildType}&count=1", "GET");
-        this.client.registerMethod("getBuildData", config.connectionSettings.url + config.connectionSettings.authType + "/app/rest/2017.2/builds/${buildLocator}", "GET");
-        this.client.registerMethod("getTestForBuild", config.connectionSettings.url  + config.connectionSettings.authType + "/app/rest/2017.2/builds/${buildLocator}/testOccurrences", "GET");
-        this.client.registerMethod("getChangeData", config.connectionSettings.url + config.connectionSettings.authType + "/app/rest/2017.2/changes/${changeLocator}", "GET");
+        const baseUrl = config.connectionSettings.url + (config.connectionSettings.authType ? config.connectionSettings.authType + '/' : '');
+
+        if (config.appSettings.debug) console.log(baseUrl);
+
+        this.client.registerMethod("getBuildsOfType", baseUrl + "app/rest/2017.2/builds?buildType=${buildType}&count=1&locator=failedToStart:any,running:any", "GET");
+        this.client.registerMethod("getBuildData", baseUrl + "app/rest/2017.2/builds/${buildLocator}", "GET");
+        this.client.registerMethod("getTestForBuild", baseUrl + "app/rest/2017.2/builds/${buildLocator}/testOccurrences", "GET");
+        this.client.registerMethod("getChangeData", baseUrl + "app/rest/2017.2/changes/${changeLocator}", "GET");
     }
 
     wrapCallback(callBack) {
