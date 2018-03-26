@@ -11,8 +11,8 @@ class BuildStateListener extends Component {
         if(config.appSettings.debug) console.log(this.props.buildData);
         if(config.appSettings.debug) console.log(anyBuildFailed ? "Builds failed!" : "No failed builds.");
         return (
-            <Sound
-              url="http://www.trekcore.com/audio/redalertandklaxons/tng_red_alert1.mp3"
+            config.appSettings.alertSound && <Sound
+              url={config.appSettings.alertSound}
               playStatus={anyBuildFailed ? Sound.status.PLAYING : Sound.status.STOPPED}
               loop
             />
