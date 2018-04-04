@@ -39,14 +39,14 @@ module.exports = class TeamCityClient {
             path: {"buildType": buildType}
         };
 
-        this.client.methods.getBuildsOfType(args, this.wrapCallback(callBack)).on('error', TeamCityClient.onError());
+        this.client.methods.getBuildsOfType(args, this.wrapCallback(callBack)).on('error', function() {TeamCityClient.onError()});
     }
 
     getBuildData(buildId, callBack){
         let args = {
             path: {"buildLocator": buildId}
         };
-        this.client.methods.getBuildData(args, this.wrapCallback(callBack)).on('error', TeamCityClient.onError());
+        this.client.methods.getBuildData(args, this.wrapCallback(callBack)).on('error', function() {TeamCityClient.onError()});
     }
 
     getTestForBuild(buildId, callBack){
@@ -54,7 +54,7 @@ module.exports = class TeamCityClient {
             path: {"buildLocator": buildId}
         };
 
-        this.client.methods.getTestForBuild(args, this.wrapCallback(callBack)).on('error', TeamCityClient.onError());
+        this.client.methods.getTestForBuild(args, this.wrapCallback(callBack)).on('error', function() {TeamCityClient.onError()});
     }
 
     getChangeData(changeId, callBack){
@@ -62,7 +62,7 @@ module.exports = class TeamCityClient {
             path: {"changeLocator": changeId}
         };
 
-        this.client.methods.getChangeData(args, this.wrapCallback(callBack)).on('error', TeamCityClient.onError());
+        this.client.methods.getChangeData(args, this.wrapCallback(callBack)).on('error', function() {TeamCityClient.onError()});
     }
 
     callActionByName(action, param, callback){
