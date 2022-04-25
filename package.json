@@ -1,33 +1,60 @@
 {
   "name": "drakolis-teamcity",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "private": true,
   "dependencies": {
-    "animate.css": "^3.6.1",
-    "axios": "^0.18.0",
-    "concurrently": "^3.5.1",
-    "cors": "^2.8.4",
-    "material-ui": "^0.20.0",
-    "moment": "^2.21.0",
-    "node-rest-client": "^3.1.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-fa": "^5.0.0",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "^1.1.1",
-    "react-sound": "^1.1.0",
-    "reactstrap": "^5.0.0",
-    "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0"
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.6.3",
+    "@reduxjs/toolkit": "^1.8.1",
+    "animate.css": "^4.1.1",
+    "axios": "^0.26.1",
+    "azure-devops-node-api": "^11.1.1",
+    "concurrently": "^7.1.0",
+    "cors": "^2.8.5",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.3",
+    "node-rest-client": "^3.1.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-redux": "^8.0.1",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start-ui": "react-scripts start",
-    "start-server": "node server",
-    "start": "concurrently --kill-others \"react-scripts start\" \"node server\"",
+    "start-server": "node src/server",
+    "start": "concurrently --kill-others \"react-scripts start\" \"node src/server\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx eslint",
+    "lint:fix": "npx eslint --fix"
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "prettier": "^2.6.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
